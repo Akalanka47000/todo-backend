@@ -8,7 +8,7 @@ const logger = require('../utils/logger')
 // @route   POST /api/v1/auth/register
 // @access  Public
 
-const register = asyncHandler(async (req, res, next) => {
+const register = asyncHandler(async (req, res) => {
   try {
     const { username, email, password } = req.body
 
@@ -30,7 +30,7 @@ const register = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/auth/login
 // @access  Public
 
-const login = asyncHandler(async (req, res, next) => {
+const login = asyncHandler(async (req, res) => {
   try {
     const { username, email, password } = req.body
     const user = await authService.login(username, email, password)
@@ -46,7 +46,7 @@ const login = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/logout
 // @access  Private
 
-const logout = asyncHandler(async (req, res, next) => {
+const logout = asyncHandler(async (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
@@ -61,7 +61,7 @@ const logout = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/user
 // @access  Private
 
-const getCurrentUser = asyncHandler(async (req, res, next) => {
+const getCurrentUser = asyncHandler(async (req, res) => {
   try {
     const user = await authService.getCurrentUser(req)
     if (user) return res.status(200).json({ success: true, data: user })

@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
 
   error.message = err.message
 
-  logger.error(error.message)
+  logger.error(err)
 
   // Log to console for dev
   if (process.env.NODE_ENV !== 'production') console.log(err)
