@@ -1,4 +1,6 @@
 const errorResponse = (res, error, status) => {
-  res.status(status).json({ success: false, error: error })
+  // Prisma duplicate entry error
+  if (error.code === 'P2002') error.message = `Duplicate entry for ${error.meta.target}`
+  res.status(status).json({ success: false, error: error.message || error, stack: error.stack })
 }
 module.exports = errorResponse
