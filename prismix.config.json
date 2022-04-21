@@ -3,7 +3,9 @@
       {
           "input": [
               "./prisma/base.prisma",
-              "./src/api/models/user.prisma"
+              "./src/api/models/user.prisma",
+              "./src/api/models/status.prisma",
+              "./src/api/models/task.prisma"
 
           ],
           "output": "./prisma/schema.prisma"

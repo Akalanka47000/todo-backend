@@ -1,0 +1,19 @@
+model Task {
+  id Int @id @default(autoincrement())
+  name String
+  user_id Int
+  user    User @relation(fields: [user_id], references: [id])
+  status_id Int
+  status    Status @relation(fields: [status_id], references: [id])
+  created_at  DateTime   @default(now())
+}
+
+model User {
+  id Int @id
+  tasks  Task[]
+}
+
+model Status {
+  id Int @id
+  tasks  Task[]
+}

@@ -1,0 +1,6 @@
+model Status {
+  id Int @id @default(autoincrement())
+  name String @unique
+  description String
+  created_at  DateTime   @default(now())
+}

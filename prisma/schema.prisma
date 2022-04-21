@@ -14,4 +14,23 @@ model User {
   email      String   @unique
   password   String
   created_at DateTime @default(now())
+  tasks      Task[]   @relation(name: "TaskToUser")
+}
+
+model Status {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  created_at  DateTime @default(now())
+  tasks       Task[]   @relation(name: "StatusToTask")
+}
+
+model Task {
+  id         Int      @id @default(autoincrement())
+  name       String
+  user_id    Int
+  user       User     @relation(name: "TaskToUser", fields: [user_id], references: [id])
+  status_id  Int
+  status     Status   @relation(name: "StatusToTask", fields: [status_id], references: [id])
+  created_at DateTime @default(now())
 }
