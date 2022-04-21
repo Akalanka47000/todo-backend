@@ -1,9 +1,12 @@
+const logger = require('../utils/logger')
 const errorResponse = require('../utils/errorResponse')
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err }
 
   error.message = err.message
+
+  logger.error(error.message)
 
   // Log to console for dev
   if (process.env.NODE_ENV !== 'production') console.log(err)

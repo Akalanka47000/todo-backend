@@ -4,6 +4,6 @@ const router = express.Router()
 
 const handleHealthRequest = require('../controllers/health')
 
-router.route('/').get(handleHealthRequest)
+router.get(handleHealthRequest)
 
 module.exports = router

@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const xss = require('xss-clean')
 const cookieParser = require('cookie-parser')
-const winston = require('winston')
 const colors = require('colors')
 const errorHandler = require('./api/middleware/error')
 const errorResponse = require('./api/utils/errorResponse')
@@ -35,30 +34,6 @@ app.use('/api/v1', routes)
 app.get('*', (req, res) => {
   return errorResponse(res, 'Route not found', 404)
 })
-
-// Logging
-const logger = winston.createLogger({
-  format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
-  transports: [
-    new winston.transports.File({
-      filename: `logs/error/${new Date().toISOString().slice(0, 10)}.log`,
-      level: 'error',
-    }),
-    new winston.transports.File({
-      filename: `logs/info/${new Date().toISOString().slice(0, 10)}.log`,
-      level: 'info',
-    }),
-  ],
-})
-
-// Dev console logging
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
-    }),
-  )
-}
 
 const PORT = process.env.PORT || 4000
 
