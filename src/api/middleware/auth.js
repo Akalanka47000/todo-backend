@@ -1,12 +1,14 @@
 const asyncHandler = require('./async')
 const authService = require('../services/auth')
+const { fetchUserById } = require('../repository/user')
 const errorResponse = require('../utils/errorResponse')
 
 // Protect routes
 const protect = asyncHandler(async (req, res, next) => {
   try {
-    const user = await authService.getCurrentUser(req)
-    if (!user) return errorResponse(res, 'Not authorized to access this route', 401)
+    const decodedUser = await authService.getCurrentUser(req)
+    const user = await fetchUserById(decodedUser.id)
+    if (!user) return errorResponse(res, 'Not authorized to access this route', 403)
     req.user = user
     next()
   } catch (err) {

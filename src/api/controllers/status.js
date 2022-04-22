@@ -4,7 +4,7 @@ const asyncHandler = require('../middleware/async')
 const logger = require('../utils/logger')
 
 // @desc    Get all possible task statuses
-// @route   POST /api/v1/status/
+// @route   GET /api/v1/status/
 // @access  Private
 
 const getStatusList = asyncHandler(async (req, res) => {

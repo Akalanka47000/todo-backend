@@ -31,7 +31,7 @@ const routes = require('./api/routes')
 app.use('/api/v1', routes)
 
 // 404 handler
-app.get('*', (req, res) => {
+app.all('*', (req, res) => {
   return errorResponse(res, 'Route not found', 404)
 })
 

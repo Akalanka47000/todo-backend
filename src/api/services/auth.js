@@ -1,8 +1,6 @@
-const prismaClient = require('@prisma/client').PrismaClient
 const bcrypt = require('bcrypt')
 const { decodeJwtToken } = require('../utils/jwt')
-
-const prisma = new prismaClient()
+const { createUser, fetchUserByUsername, fetchUserByEmail, deleteUserById } = require('../repository/user')
 
 const register = async (username, email, password) => {
   const encryptedPassword = await new Promise((resolve, reject) => {
@@ -11,23 +9,15 @@ const register = async (username, email, password) => {
       resolve(hash)
     })
   })
-  return await prisma.user.create({
-    data: {
-      username,
-      email,
-      password: encryptedPassword,
-    },
+  return await createUser({
+    username,
+    email,
+    password: encryptedPassword,
   })
 }
 
 const login = async (username, email, password) => {
-  const user = await prisma.user.findFirst({
-    where: username
-      ? {
-          username,
-        }
-      : { email },
-  })
+  const user = username ? await fetchUserByUsername(username) : await fetchUserByEmail(email)
   if (!user) return false
   const isPasswordMatch = await bcrypt.compare(password, user.password)
   if (isPasswordMatch) return user
@@ -49,8 +39,13 @@ const getCurrentUser = async (req) => {
   return data
 }
 
+const deleteCurrentUser = async (req) => {
+  return await deleteUserById(req.user.id)
+}
+
 module.exports = {
   register,
   login,
   getCurrentUser,
+  deleteCurrentUser,
 }
