@@ -2,14 +2,17 @@
   "name": "todo-backend",
   "version": "1.0.0",
   "description": "Backend for a simple todo application",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "npm run prismix && NODE_ENV=production node src/index.js",
-    "dev": "npm run prismix && nodemon src/index.js",
+    "start": "npm run prismix && NODE_ENV=production node src/server.js",
+    "dev": "npm run prismix && nodemon src/server.js",
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "migrate": "npm run prismix && npx prisma migrate dev --name initial_migration",
     "seed": "node prisma/seeders/index.js",
-    "test": "test"
+    "migrate:reset": "prisma migrate reset --force",
+    "testdb:seed": "dotenv -e .env.test node prisma/seeders/index.js",
+    "testdb:reset": "dotenv -e .env.test npm run migrate:reset",
+    "test": "dotenv -e .env.test npm run migrate && npm run testdb:seed && dotenv -e .env.test jest --config=jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "dotenv-cli": "^5.1.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "prismix": "^1.0.21",
@@ -38,7 +42,10 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.13",
-    "prisma": "^3.2.1"
+    "prisma": "^3.2.1",
+    "supertest": "^6.1.6",
+    "supertest-session": "^4.1.0"
   }
 }

@@ -1,6 +1,4 @@
-const prismaClient = require('@prisma/client').PrismaClient
-
-const prisma = new prismaClient()
+const { getAllStatuses, createStatuses } = require('../../src/api/repository/status')
 
 const data = [
   {
@@ -18,9 +16,8 @@ const data = [
 ]
 
 const seed = async () => {
-  await prisma.status.createMany({
-    data,
-  })
+  const statuses = await getAllStatuses()
+  if (statuses.length === 0) await createStatuses(data)
 }
 
 module.exports = seed

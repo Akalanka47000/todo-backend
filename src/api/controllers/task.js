@@ -15,7 +15,7 @@ const createTask = asyncHandler(async (req, res) => {
     if (!name) return errorResponse(res, 'Please provide a task name', 400)
 
     const task = await taskService.createTask(req, res, name)
-    if (task) return res.status(200).json({ success: true, message: 'Task created successfully' })
+    if (task) return res.status(200).json({ success: true, message: 'Task created successfully', data: task })
     return errorResponse(res, 'Failed to create task', 422)
   } catch (e) {
     logger.error(e)
@@ -59,13 +59,9 @@ const getTaskById = asyncHandler(async (req, res) => {
 
 const updateTask = asyncHandler(async (req, res) => {
   try {
-    // Validate request body
     const { name, status } = req.body
-    if (!name) return errorResponse(res, 'Please provide a task name', 400)
-    if (!status) return errorResponse(res, 'Please provide a task status', 400)
-
     const task = await taskService.updateTask(req, res, name, status)
-    if (task) return res.status(200).json({ success: true, message: 'Task updated successfully' })
+    if (task) return res.status(200).json({ success: true, message: 'Task updated successfully', data: task })
     return errorResponse(res, 'Failed to update task', 422)
   } catch (e) {
     logger.error(e)

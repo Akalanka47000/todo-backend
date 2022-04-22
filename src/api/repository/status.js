@@ -2,6 +2,11 @@ const prismaClient = require('@prisma/client').PrismaClient
 
 const prisma = new prismaClient()
 
+const createStatuses = async (data) => {
+  return await prisma.status.createMany({
+    data,
+  })
+}
 const getAllStatuses = async () => {
   return await prisma.status.findMany()
 }
@@ -23,6 +28,7 @@ const getStatusByName = async (name) => {
 }
 
 module.exports = {
+  createStatuses,
   getAllStatuses,
   getStatusById,
   getStatusByName,

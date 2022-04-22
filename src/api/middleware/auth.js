@@ -7,7 +7,7 @@ const errorResponse = require('../utils/errorResponse')
 const protect = asyncHandler(async (req, res, next) => {
   try {
     const decodedUser = await authService.getCurrentUser(req)
-    const user = await fetchUserById(decodedUser.id)
+    const user = decodedUser ? await fetchUserById(decodedUser.id) : null
     if (!user) return errorResponse(res, 'Not authorized to access this route', 403)
     req.user = user
     next()
