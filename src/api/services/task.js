@@ -38,12 +38,16 @@ const updateTask = async (req, res, taskName, statusId) => {
   if (task.user_id != req.user.id)
     return errorResponse(res, 'You are not authorized to update this task', 403)
 
-  const status = await getStatusById(statusId)
-  if (!status) return errorResponse(res, 'Status not found', 400)
+  let newStatus
+  if (statusId) {
+    const status = await getStatusById(statusId)
+    if (!status) return errorResponse(res, 'Status not found', 400)
+    newStatus = status.id
+  }
 
   return await updateTaskById(req.params.id, {
-    name: taskName,
-    status_id: Number(statusId),
+    name: taskName || task.name,
+    status_id: newStatus || task.status_id,
   })
 }
 const deleteTask = async (req, res) => {
