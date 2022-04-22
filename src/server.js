@@ -20,7 +20,7 @@ app.use(cookieParser())
 app.use(xss())
 
 // Enable CORS
-app.use(cors())
+app.use(cors({ origin: true, credentials: true }))
 
 // Error handler
 app.use(errorHandler)
