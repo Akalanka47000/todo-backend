@@ -17,7 +17,8 @@ const register = async (username, email, password) => {
 }
 
 const login = async (username, email, password) => {
-  const user = username ? await fetchUserByUsername(username) : await fetchUserByEmail(email)
+  let user = await fetchUserByUsername(username)
+  if(!user) user = await fetchUserByEmail(email)
   if (!user) return false
   const isPasswordMatch = await bcrypt.compare(password, user.password)
   if (isPasswordMatch) return user
