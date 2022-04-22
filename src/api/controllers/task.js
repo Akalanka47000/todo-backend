@@ -24,7 +24,7 @@ const createTask = asyncHandler(async (req, res) => {
 })
 
 // @desc    Get all user specific tasks
-// @route   POST /api/v1/task/
+// @route   GET /api/v1/task/
 // @access  Private
 
 const getTasks = asyncHandler(async (req, res) => {
@@ -54,7 +54,7 @@ const getTaskById = asyncHandler(async (req, res) => {
 })
 
 // @desc    Update user specific task by id
-// @route   GET /api/v1/task/:id
+// @route   PUT /api/v1/task/:id
 // @access  Private
 
 const updateTask = asyncHandler(async (req, res) => {
@@ -74,7 +74,7 @@ const updateTask = asyncHandler(async (req, res) => {
 })
 
 // @desc    Delete user specific task by id
-// @route   GET /api/v1/task/:id
+// @route   DELETE /api/v1/task/:id
 // @access  Private
 
 const deleteTask = asyncHandler(async (req, res, next) => {

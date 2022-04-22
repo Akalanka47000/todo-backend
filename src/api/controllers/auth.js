@@ -43,7 +43,7 @@ const login = asyncHandler(async (req, res) => {
 })
 
 // @desc    Logout user
-// @route   GET /api/v1/auth/logout
+// @route   POST /api/v1/auth/logout
 // @access  Private
 
 const logout = asyncHandler(async (req, res) => {
@@ -57,7 +57,7 @@ const logout = asyncHandler(async (req, res) => {
   })
 })
 
-// @desc    Get Current User
+// @desc    Get current user
 // @route   GET /api/v1/auth/user
 // @access  Private
 
@@ -65,7 +65,23 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   try {
     const user = await authService.getCurrentUser(req)
     if (user) return res.status(200).json({ success: true, data: user })
-    return errorResponse(res, 'Failed to get user', 400)
+    return errorResponse(res, 'Failed to get user', 422)
+  } catch (e) {
+    logger.error(e)
+    return errorResponse(res, e, 500)
+  }
+})
+
+
+// @desc    Delete currently logged in user
+// @route   DELETE /api/v1/auth/user
+// @access  Private
+
+const deleteCurrentUser = asyncHandler(async (req, res) => {
+  try {
+    const result = await authService.deleteCurrentUser(req)
+    if (result) return res.status(200).json({ success: true, message: 'Account deleted successfully' })
+    return errorResponse(res, 'Failed to delete user account', 422)
   } catch (e) {
     logger.error(e)
     return errorResponse(res, e, 500)
@@ -77,4 +93,5 @@ module.exports = {
   login,
   logout,
   getCurrentUser,
+  deleteCurrentUser,
 }
