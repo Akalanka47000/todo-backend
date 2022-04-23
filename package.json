@@ -8,6 +8,7 @@
     "dev": "npm run prismix && nodemon src/server.js",
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "migrate": "npm run prismix && npx prisma migrate dev --name initial_migration",
+    "migrate:db-push": "npm run prismix && npx prisma db push --preview-feature",
     "seed": "node prisma/seeders/index.js",
     "migrate:reset": "prisma migrate reset --force",
     "testdb:seed": "dotenv -e .env.test node prisma/seeders/index.js",
