@@ -105,3 +105,8 @@ dist
 .tern-port
 
 prisma/migrations/
+prisma/db.sqlite3
+prisma/db.sqlite3-journal
+prisma/db.test.sqlite3
+prisma/db.test.sqlite3-journal
+
