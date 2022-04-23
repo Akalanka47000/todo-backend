@@ -9,13 +9,26 @@ const createNewTask = async (data) => {
 }
 
 const getAllTasks = async () => {
-  return await prisma.task.findMany()
+  return await prisma.task.findMany({
+    include: {
+      status: true,
+    },
+  })
 }
 
 const fetchAllTasksByUser = async (userId) => {
   return await prisma.task.findMany({
     where: {
       user_id: userId,
+    },
+    include: {
+      status: {
+        select: {
+          id: true,
+          name: true,
+          color: true,
+        },
+      },
     },
   })
 }
@@ -24,6 +37,15 @@ const fetchTaskById = async (id) => {
   return await prisma.task.findFirst({
     where: {
       id: typeof id != 'number' ? Number(id) : id,
+    },
+    include: {
+      status: {
+        select: {
+          id: true,
+          name: true,
+          color: true,
+        },
+      },
     },
   })
 }

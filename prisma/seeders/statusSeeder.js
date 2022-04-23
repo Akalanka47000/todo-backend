@@ -4,14 +4,17 @@ const data = [
   {
     name: 'Todo',
     description: 'Newly added tasks which are still pending',
+    color: '#fbbf24',
   },
   {
     name: 'In Progress',
     description: 'Tasks which are currently being worked on',
+    color: '#2462c3',
   },
   {
     name: 'Done',
     description: 'Tasks which are completed',
+    color: '#22c55e',
   },
 ]
 

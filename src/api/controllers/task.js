@@ -59,8 +59,8 @@ const getTaskById = asyncHandler(async (req, res) => {
 
 const updateTask = asyncHandler(async (req, res) => {
   try {
-    const { name, status } = req.body
-    const task = await taskService.updateTask(req, res, name, status)
+    const { name, status_id } = req.body
+    const task = await taskService.updateTask(req, res, name, status_id)
     if (task) return res.status(200).json({ success: true, message: 'Task updated successfully', data: task })
     return errorResponse(res, 'Failed to update task', 422)
   } catch (e) {
