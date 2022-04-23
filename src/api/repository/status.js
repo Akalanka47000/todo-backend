@@ -7,6 +7,13 @@ const createStatuses = async (data) => {
     data,
   })
 }
+
+const createStatus = async (data) => {
+  return await prisma.status.create({
+    data,
+  })
+}
+
 const getAllStatuses = async () => {
   return await prisma.status.findMany()
 }
@@ -29,6 +36,7 @@ const getStatusByName = async (name) => {
 
 module.exports = {
   createStatuses,
+  createStatus,
   getAllStatuses,
   getStatusById,
   getStatusByName,

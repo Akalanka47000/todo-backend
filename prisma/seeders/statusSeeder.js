@@ -1,4 +1,4 @@
-const { getAllStatuses, createStatuses } = require('../../src/api/repository/status')
+const { getAllStatuses, createStatus } = require('../../src/api/repository/status')
 
 const data = [
   {
@@ -20,7 +20,11 @@ const data = [
 
 const seed = async () => {
   const statuses = await getAllStatuses()
-  if (statuses.length === 0) await createStatuses(data)
+  if (statuses.length === 0) {
+    data.forEach(async (status) => {
+      await createStatus(status)
+    })
+  }
 }
 
 module.exports = seed
