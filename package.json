@@ -4,7 +4,8 @@
   "description": "Backend for a simple todo application",
   "main": "src/server.js",
   "scripts": {
-    "start": "npm run prismix && NODE_ENV=production node src/server.js",
+    "build": "rimraf ./dist && npx babel src --out-dir dist",
+    "start": "npm run prismix && NODE_ENV=production node dist/server.js",
     "dev": "npm run prismix && nodemon src/server.js",
     "prismix": "npx prismix && prisma format && npx prisma generate",
     "migrate": "npm run prismix && npx prisma migrate dev --name initial_migration",
@@ -43,6 +44,9 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "jest": "^27.5.1",
     "nodemon": "^2.0.13",
     "prisma": "^3.2.1",

@@ -1,7 +1,6 @@
 const taskService = require('../services/task')
 const errorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
-const { sendTokenResponse } = require('../utils/jwt')
 const logger = require('../utils/logger')
 
 // @desc    Create user specific task
